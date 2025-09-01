@@ -28,7 +28,6 @@ public class ProductController {
                 .orElseThrow(() -> new RuntimeException("Product not found"));
     }
 
-    // ✅ ADMIN Only - Add product
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public List<Product> addProducts(@RequestBody List<Product> products) {
@@ -43,11 +42,7 @@ public class ProductController {
                 .distinct()
                 .toList();
     }
-//    public Product addProduct(@RequestBody Product product) {
-//        return productRepository.save(product);
-//    }
 
-    // ✅ ADMIN Only - Update product
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public Product updateProduct(@PathVariable Long id, @RequestBody Product updatedProduct) {
@@ -61,7 +56,6 @@ public class ProductController {
         }).orElseThrow(() -> new RuntimeException("Product not found"));
     }
 
-    // ✅ ADMIN Only - Delete product
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public String deleteProduct(@PathVariable Long id) {
