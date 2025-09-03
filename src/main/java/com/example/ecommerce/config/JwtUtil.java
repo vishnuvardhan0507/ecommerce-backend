@@ -15,8 +15,8 @@ import java.util.function.Function;
 @Component
 public class JwtUtil {
 
-    private final String SECRET_KEY = "mysecretkeymysecretkeymysecretkey123"; // use env variable in prod
-    private final long JWT_EXPIRATION = 1000 * 60 * 60 * 10; // 10 hours
+    private final String SECRET_KEY = "mysecretkeymysecretkeymysecretkey123";
+    private final long JWT_EXPIRATION = 1000 * 60 * 60 * 10;
 
     private Key getSigningKey() {
         return Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
