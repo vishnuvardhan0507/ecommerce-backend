@@ -8,6 +8,6 @@ import lombok.*;
 public class OrderItemDto {
     private Long productId;
     private String name;
-    private double price;   // unit price at purchase
-    private int quantity;   // ordered quantity
+    private double price;
+    private int quantity;
 }

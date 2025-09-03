@@ -1,6 +1,6 @@
 package com.example.ecommerce.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,19 +11,17 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "orders") // good practice, since "order" is reserved keyword in SQL
+@Table(name = "orders")
 public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // ✅ Each order belongs to a user
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    // ✅ Correct: just a normal field, not a relation
     private LocalDateTime orderDate;
 
     private double totalAmount;

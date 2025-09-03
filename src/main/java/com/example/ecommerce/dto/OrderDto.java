@@ -14,10 +14,8 @@ public class OrderDto {
 
     private Long id;
     private String  username;
-   // private List<Long> productIds;
     private LocalDateTime orderDate;
     private double totalAmount;
 
-  //  private List<ProductDto> products;
     private List<OrderItemDto> items;
 }

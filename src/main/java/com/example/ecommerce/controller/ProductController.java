@@ -1,7 +1,9 @@
 package com.example.ecommerce.controller;
 
+import com.example.ecommerce.dto.ProductDto;
 import com.example.ecommerce.model.Product;
 import com.example.ecommerce.repository.ProductRepository;
+import com.example.ecommerce.service.ProductService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -11,27 +13,27 @@ import java.util.List;
 public class ProductController {
 
     private final ProductRepository productRepository;
-
-    public ProductController(ProductRepository productRepository) {
+    private final ProductService productService;
+    public ProductController(ProductRepository productRepository, ProductService productService) {
         this.productRepository = productRepository;
+        this.productService = productService;
     }
 
 
     @GetMapping
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
+    public List<ProductDto> getAllProducts() {
+        return productService.getAllProducts() ;
     }
 
     @GetMapping("/{id}")
-    public Product getProductById(@PathVariable Long id) {
-        return productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Product not found"));
+    public ProductDto getProductById(@PathVariable Long id) {
+        return productService.getProductById(id);
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
-    public List<Product> addProducts(@RequestBody List<Product> products) {
-        return productRepository.saveAll(products);
+    public ProductDto addProducts(@RequestBody ProductDto productDto) {
+        return productService.addProduct(productDto);
     }
 
     @GetMapping("/categories")
@@ -59,7 +61,6 @@ public class ProductController {
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public String deleteProduct(@PathVariable Long id) {
-        productRepository.deleteById(id);
-        return "Product deleted!";
+       return productService.deleteProduct(id);
     }
 }

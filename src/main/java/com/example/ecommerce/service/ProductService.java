@@ -29,12 +29,17 @@ public class ProductService {
     public List<ProductDto> getAllProducts() {
         return productRepository.findAll()
                 .stream()
-                .map(p -> new ProductDto(p.getId(), p.getName(), p.getDescription(), p.getPrice(), p.getQuantity()))
+                .map(p -> new ProductDto(p.getId(), p.getName(), p.getDescription(), p.getPrice(), p.getQuantity(), p.getCategory()))
                 .collect(Collectors.toList());
     }
 
     public ProductDto getProductById(Long id) {
         Product product = productRepository.findById(id).orElseThrow(() -> new RuntimeException("Product not found"));
-        return new ProductDto(product.getId(), product.getName(), product.getDescription(), product.getPrice(), product.getQuantity());
+        return new ProductDto(product.getId(), product.getName(), product.getDescription(), product.getPrice(), product.getQuantity(),product.getCategory());
+    }
+
+    public String deleteProduct(Long id) {
+        productRepository.deleteById(id);
+        return "Product deleted!";
     }
 }
